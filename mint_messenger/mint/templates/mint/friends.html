@@ -1,0 +1,44 @@
+{% extends 'mint/base.html' %}
+{% load static %}
+{% load mint_tags %}
+
+{% block content %}
+<div class="block overflow">
+    {% if invites %}
+    <h1>Заявки в друзья</h1>
+
+    <br>
+    <br>
+
+    {% for u in users %}
+    {% if u.confirm %}
+    {% get_card u=u %}
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+
+    {% if friends %}
+    <h1>Друзья</h1>
+
+    <br>
+    <br>
+
+    {% for u in users %}
+    {% if u.friend %}
+    {% get_card u=u %}
+    {% endif %}
+    {% endfor %}
+    {% endif %}
+
+    <h1>Другие пользователи</h1>
+
+    <br>
+    <br>
+
+    {% for u in users %}
+    {% if not u.confirm and not u.friend %}
+    {% get_card u=u %}
+    {% endif %}
+    {% endfor %}
+</div>
+{% endblock content %}

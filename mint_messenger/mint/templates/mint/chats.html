@@ -1,0 +1,43 @@
+{% extends 'mint/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="block overflow">
+    <h1>Чаты</h1>
+
+    <br>
+
+    {% for u in users %}
+    {% if u.last_message or u.friend %}
+    <a class="chat" href="{{ u.user.get_absolute_url }}#last">
+        {% if u.user.image %}
+        <div class="photo chat_photo" style="background-image: url('/media/images/{{ u.user.image }}')"></div>
+        {% else %}
+        <div class="photo chat_photo" style="background-image: url({% static '/mint/images/no_photo.png' %})"></div>
+        {% endif %}
+
+        <p style="font-weight: bold; font-size: 25px">{{ u.user }}</p>
+
+        <br>
+
+        <div>
+            {% if u.last_message %}
+            {% if u.last_message.is_read %}
+            <p style="display: inline">{{ u.last_message.message }} ✓✓</p>
+            {% else %}
+            <p style="display: inline">{{ u.last_message.message }} ✓</p>
+            {% endif %}
+            <p style="display: inline" class="send_time">{{ u.date }}</p>
+            {% else %}
+            <p style="display: inline">Написать {{ u.user }}</p>
+            {% endif %}
+        </div>
+
+    </a>
+    <br>
+    {% endif %}
+    {% empty %}
+    <p>Пока ничего нет(</p>
+    {% endfor %}
+</div>
+{% endblock content %}

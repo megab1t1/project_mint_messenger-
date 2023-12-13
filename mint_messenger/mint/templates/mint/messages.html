@@ -1,0 +1,48 @@
+{% extends 'mint/base.html' %}
+{% load mint_tags %}
+
+{% block content %}
+<body onload="document.location.href='#last'; return false;">
+    {{ block.super }}
+    <div class="block messages overflow">
+        <h1>{{ title }}</h1>
+
+        <br>
+
+        {% for m in messages %}
+        {% if not forloop.first %}
+        <br>
+        {% endif %}
+
+        <div style="text-align: center">
+            {% if m.date %}
+            <p>{{ m.date }}</p>
+            {% endif %}
+        </div>
+
+        {% if m.date %}
+        <br>
+        {% endif %}
+
+        {% if m.is_last %}
+        <a name="last" id="last"></a>
+        {% message m=m %}
+        {% else %}
+        {% message m=m %}
+        {% endif %}
+        {% empty %}
+        <h1 style="text-align: center">Пока сообщений нет :(</h1>
+        {% endfor %}
+    </div>
+
+    <div class="message_input">
+        <form method="post">
+            {% csrf_token %}
+
+            {{ form.message }}
+
+            <button type="submit" class="message_submit">SEND</button>
+        </form>
+    </div>
+</body>
+{% endblock content %}

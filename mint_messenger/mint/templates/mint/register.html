@@ -1,0 +1,24 @@
+{% extends 'mint/auth_base.html' %}
+{% load static %}
+
+{% block auth_form %}
+<div class="login" style="height: 550px">
+    <div class="login_head">
+        <h1 class="mint_messenger" style="font-size: 35px; top: 35px">Mint messenger</h1>
+    </div>
+
+    <div class="login_form">
+        <h1 style="margin: 30px 0">Регистрация</h1>
+
+        <form method="post">
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <button type="submit" class="form_submit">Зарегистрироваться</button>
+        </form>
+
+        <a class="auth_hint" href="{% url 'login_page' %}">Уже есть аккаунт?</a>
+    </div>
+</div>
+{% endblock auth_form %}

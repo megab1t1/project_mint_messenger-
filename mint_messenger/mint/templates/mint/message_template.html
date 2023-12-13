@@ -1,0 +1,30 @@
+{% if m.is_my %}
+<div class="message_background" style="display: flex">
+    <a class="message_button" href="{{ m.message.get_absolute_url_edit }}#{{ m.message.id }}"><p>Редактировать</p></a>
+    <a class="message_button" href="{{ m.message.get_absolute_url_delete }}" style="margin-left: 10px"><p>Удалить</p></a>
+
+    <div class="message your">
+        <p>{{ m.message.message }}</p>
+        {% if m.is_read %}
+        <p class="send_time">{{ m.send_time|date:'H:i' }} ✓✓</p>
+        {% else %}
+        <p class="send_time">{{ m.send_time|date:'H:i' }} ✓</p>
+        {% endif %}
+    </div>
+</div>
+{% else %}
+<div class="message_background" style="display: flex">
+    <div class="message">
+        <p>{{ m.message.message }}</p>
+        {% if m.is_read %}
+        <p class="send_time">{{ m.send_time|date:'H:i' }} ✓✓</p>
+        {% else %}
+        <p class="send_time">{{ m.send_time|date:'H:i' }} ✓</p>
+        {% endif %}
+    </div>
+
+    <br>
+
+    <a class="message_button" href="{{ m.message.get_absolute_url_delete }}" style="margin-left: 357px"><p>Удалить</p></a>
+</div>
+{% endif %}

@@ -1,0 +1,31 @@
+{% load static %}
+
+<div class="chat" style="cursor: auto">
+    {% if u.user.image %}
+    <a class="photo chat_photo" href="{{ u.user.get_absolute_url_user }}"
+       style="background-image: url('/media/images/{{ u.user.image }}')"></a>
+    {% else %}
+    <a class="photo chat_photo" href="{{ u.user.get_absolute_url_user }}"
+       style="background-image: url({% static '/mint/images/no_photo.png' %})"></a>
+    {% endif %}
+
+    <a class="username" style="font-weight: bold; font-size: 25px"
+       href="{{ u.user.get_absolute_url_user }}">{{ u.user }}</a>
+
+    {% if u.confirm %}
+    <a class="friend_button" href="{{ u.user.get_absolute_url_confirm }}">Принять заявку</a>
+    <a class="friend_button" href="{{ u.user.get_absolute_url }}#last">Написать</a>
+    {% elif u.friend %}
+    <a class="cancel" href="{{ u.user.get_absolute_url_remove }}">Удалить из друзей</a>
+    <a class="friend_button" href="{{ u.user.get_absolute_url }}#last">Написать</a>
+    {% elif not u.confirm and not u.friend %}
+    {% if u.invite %}
+    <a class="cancel" href="{{ u.user.get_absolute_url_cancel }}">Отменить заявку</a>
+    {% else %}
+    <a class="friend_button" href="{{ u.user.get_absolute_url_invite }}">Добавить в друзья</a>
+    {% endif %}
+    <a class="friend_button" href="{{ u.user.get_absolute_url }}#last">Написать</a>
+    {% endif %}
+</div>
+
+<br>

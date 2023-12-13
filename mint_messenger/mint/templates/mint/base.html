@@ -1,0 +1,43 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport"
+              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>{{ title }}</title>
+        <link type="text/css" href="{% static 'mint/css/style.css' %}" rel="stylesheet">
+    </head>
+    <body style="background-color: #d6ffd4">
+        <header>
+            <h1 class="mint_messenger">Mint messenger</h1>
+        </header>
+
+        <div class="left_bar">
+            <h1>Menu</h1>
+
+            <br>
+            <br>
+            <br>
+
+            {% for i in menu %}
+            {% if option_selected == i.id %}
+            <a class="link selected" href="{% url i.url %}">
+                <p>{{ i.title }}</p>
+            </a>
+            {% else %}
+            <a class="link" href="{% url i.url %}">
+                <p>{{ i.title }}</p>
+            </a>
+            {% endif %}
+            <br>
+            {% endfor %}
+        </div>
+
+        <div class="content">
+            {% block content %}
+            {% endblock content %}
+        </div>
+    </body>
+</html>
